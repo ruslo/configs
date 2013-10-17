@@ -1,0 +1,28 @@
+[core]
+  editor = gvim.py
+  filemode = false
+
+[diff]
+  tool = git_diff_tool
+
+[difftool "git_diff_tool"]
+  cmd = gvim.py -f -d "${REMOTE}" "${LOCAL}"
+  prompt = false
+
+[merge]
+  conflictstyle = diff3
+  verbosity = 5
+  tool = git_merge_tool
+
+[mergetool "git_merge_tool"]
+  cmd = gvim.py -f -d "${REMOTE}" "${BASE}" "${LOCAL}" && cp "${LOCAL}" "${MERGED}"
+  trustExitCode = true
+  prompt = false
+  keepTemporaries = false
+  keepBackup = false
+
+[push]
+  default = simple
+
+[color]
+  ui = true

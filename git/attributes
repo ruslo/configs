@@ -1,0 +1,4 @@
+* conflict-marker-size=32
+*.pbxproj binary
+*.vcproj binary
+*.graphml binary
