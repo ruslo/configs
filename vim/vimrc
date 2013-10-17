@@ -1,0 +1,115 @@
+" Copyright (c) 2013, Ruslan Baratov
+" All rights reserved.
+
+" Copy this file to ~/.vimrc (unix) or
+" %HOME%/_vimrc (windows), %HOME%/_vsvimrc (VsVim windows)
+
+" Disable Vi-compatible
+set nocompatible
+
+" |set encoding=utf-8| break windows gvim
+
+if has('win32')
+  set fileformats=dos,unix
+  set fileencodings=cp1251,utf-8,koi8-r,cp866
+  set guifont=DejaVu_Sans_Mono:h10:cRUSSIAN
+else
+  set fileformats=unix,dos
+  set fileencodings=utf-8,cp1251,koi8-r,cp866
+endif
+
+colorscheme zellner
+set background=light
+
+" Expand tabs to spaces.
+set expandtab
+
+" Tab width.
+set tabstop=2
+set shiftwidth=2
+
+" This makes Vim display the match for the string
+" while you are still typing it.
+set incsearch
+
+" Searches wrap around the end of the file.
+set wrapscan
+
+" No W11 warning.
+set autoread
+
+set hlsearch
+set autoindent
+set showcmd
+set cindent shiftwidth=2
+set mousemodel=popup
+set ruler
+set printdevice=emptyprinter
+
+set cinoptions=g0,:0,(0,w1
+
+set backspace=2
+
+set number
+
+" Wrap lines
+set wrap
+
+" No .swap files
+set noswapfile
+
+" Disable vi bell
+set visualbell
+
+" Highlight current line
+set cursorline
+
+" Show status
+set laststatus=2
+
+" Make command line two lines high
+set ch=2
+
+" Highlight 80 column
+let &colorcolumn=join(range(81,9999),",")
+
+" Status info
+"     f   path to the file (relative)
+"     m   modified flag
+"     r   readonly flag
+"     c   column number
+set statusline=%f%m%r%=\ \[ff=%{&fileformat}\
+\ enc=%{&encoding}\ fenc=%{&fileencoding}\]\ %l~%c
+
+" Disable instrument panel
+set guioptions-=T
+
+set foldmethod=syntax
+set nofoldenable
+
+if &diff
+  set columns=200
+else
+  set columns=100
+endif
+
+set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
+
+syntax enable
+syntax on
+
+" Switch language <Ctrl-^>
+set keymap=russian-jcukenwin
+
+" English is default
+set iminsert=0
+set imsearch=0
+
+" Switch language <Ctrl+F>
+cmap <silent> <C-F> <C-^>
+imap <silent> <C-F> <C-^>
+nmap <silent> <C-F> <C-^>
+vmap <silent> <C-F> <C-^>
+
+highlight TabsAndTrailingSpaces ctermbg=red guibg=red
+match TabsAndTrailingSpaces /\t\| \+$/
