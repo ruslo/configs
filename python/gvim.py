@@ -82,4 +82,7 @@ else:
 log.p('call: {}'.format(vim_argv))
 
 # do not call |command.run| (tested with '-f' option)
-subprocess.check_call(vim_argv)
+try:
+  subprocess.check_call(vim_argv)
+except subprocess.CalledProcessError:
+  sys.exit('Call to (g)vim failed')
