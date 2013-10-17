@@ -1,0 +1,136 @@
+#!/bin/bash
+
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+# See README.md for usage
+
+# Warning:
+#     This file can be included by |. bashrc| command,
+#     do not put |exit| here, otherwise parent scripst will exit.
+#
+#     Do not |cd| to any directory during |bashrc| loading
+#     it's not comfortable while making |source ~/.bashrc|' for update
+
+if [ -n "${GITENV_ROOT}" ];
+then
+  export USER_CONFIGS_DIRECTORY="${GITENV_ROOT}/configs"
+else
+  _THIS_SOURCE_DIRNAME=`dirname "${BASH_SOURCE[0]}"`
+  USER_CONFIGS_DIRECTORY=`cd "${_THIS_SOURCE_DIRNAME}/.." && pwd`
+fi
+
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/os_detect.sh" ];
+then
+  source "${USER_CONFIGS_DIRECTORY}/unix/os_detect.sh"
+fi
+
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors.sh" ];
+then
+  source "${USER_CONFIGS_DIRECTORY}/unix/colors.sh"
+fi
+
+if [ "`command -v dircolors`" != "" ]; then
+  __USER_CONFIGS_DIRCOLORS_FILE="${USER_CONFIGS_DIRECTORY}/unix/dircolors"
+  if [ -r "${__USER_CONFIGS_DIRCOLORS_FILE}" ];
+  then
+    eval `dircolors "${__USER_CONFIGS_DIRCOLORS_FILE}"`
+  fi
+fi
+
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/inputrc" ];
+then
+  bind -f "${USER_CONFIGS_DIRECTORY}/unix/inputrc"
+fi
+
+# -F    display '/' after directory, '*' after executable, ... (see man ls)
+if [ "${OS_IS_MAC}" == "1" ]; then
+  # -G    Enable colorized output
+  # -w    Force raw printing of non-printable chars (encoding, see below)
+  alias ls='ls -GFw'
+else
+  # --show-control-chars    correct encoding for non english lang
+  alias ls='ls --show-control-chars --color -F'
+fi
+
+alias grep='grep --color'
+
+# -a    Include directory entries whose names begin with a dot (.)
+# -l    List in long format
+# -h    When used with the '-l' option, use unit suffixes: Byte, Kilobyte, ...
+alias ll='ls -alh'
+
+if [ "${OS_IS_GENTOO}" == "1" ]; then
+  if [ -f /etc/profile ]; then
+    . /etc/profile
+  fi
+fi
+
+# \[   begin a sequence of non-printing characters
+# \u   the username of the current user
+# \h   the hostname up to the first `.'
+# \w   the current working directory, with $HOME abbreviated with a tilde
+# \! - the history number of this command
+# \]   end a sequence of non-printing characters
+PS1="${COLOR_U_GREEN}\u${COLOR_OFF}@${COLOR_U_CYAN}\
+\h${COLOR_OFF} \w${COLOR_YELLOW} \!${COLOR_OFF}\n>"
+
+# -z    true if length is zero
+# ${VAR:=SUB}    if VAR is unset or empty, substitute with SUB
+if [ -n "${SSH_CONNECTION:=""}" ]; then
+  PS1="${COLOR_BHI_GREEN}[ssh]${COLOR_OFF}${PS1}"
+fi
+
+# visualisation of return value of the last executed command
+SAD_FACE_SYMBOLS=":-("
+COLORIZED_SAD_FACE_SYMBOLS="${COLOR_BHI_RED}${SAD_FACE_SYMBOLS}${COLOR_OFF}"
+PS1="\$( if [[ \$? != 0 ]]; then \
+echo \"${COLORIZED_SAD_FACE_SYMBOLS}  \"; fi)${PS1}"
+
+# http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+shopt -s expand_aliases
+
+if [ "`command -v stty`" != "" ]; then
+  # Only run if stdin is a terminal
+  if [ -t 0 ];
+  then
+    # csN        Select character size, if possible (N = 5,6,7,8)
+    # -istrip    Do not strip input characters to seven bits
+    stty cs8 -istrip
+  fi
+fi
+
+if [ "`command -v umask`" != "" ]; then
+  # file default mode is 666 & ~027 = 640 (owner: read/write, group: read)
+  # directory default mode is 777 & ~027 = 750 (owner: read/write/search, group: read/search)
+  umask 027
+fi
+
+# -C (--clear-screen)         Causes full screen repaints to be painted from the top line down
+# -xN                         Set tab stops
+# -r (--raw-control-chars)    Causes "raw" control characters to be displayed
+export LESS="-C -x2 -r"
+export LC_ALL=C
+
+if [ -d "${USER_CONFIGS_DIRECTORY}/python" ];
+then
+  export PATH="${USER_CONFIGS_DIRECTORY}/python":${PATH}
+fi
+
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/gitenv-paths.sh" ];
+then
+  source "${USER_CONFIGS_DIRECTORY}/unix/gitenv-paths.sh"
+fi
+
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/post-hook.sh" ];
+then
+  source "${USER_CONFIGS_DIRECTORY}/unix/post-hook.sh"
+fi
+
+# Last command must be not |A && B| format, see |man bash|, |set -e|:
+# "... part of any command executed in a && or  ||  list
+# except  the  command  following  the final && or || ...".
+#
+# This is last command stub:
+echo -n ""
+    # Do not put |exit 0|, see Warning at top.

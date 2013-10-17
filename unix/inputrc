@@ -1,0 +1,12 @@
+# Copyright (c) 2013, Ruslan Baratov
+# All rights reserved.
+
+# see |man bash|
+
+set input-meta on
+set meta-flag on
+set convert-meta off
+set output-meta on
+
+# See man readline
+set echo-control-characters off
