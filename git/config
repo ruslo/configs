@@ -1,5 +1,5 @@
 [core]
-  editor = gvim.py
+  editor = gvim.py -f
   filemode = false
 
 [diff]
