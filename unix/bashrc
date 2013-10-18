@@ -121,9 +121,9 @@ then
   export PATH="${USER_CONFIGS_DIRECTORY}/python":${PATH}
 fi
 
-if [ -r "${USER_CONFIGS_DIRECTORY}/unix/gitenv-paths.sh" ];
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/gitenv-extra.sh" ];
 then
-  source "${USER_CONFIGS_DIRECTORY}/unix/gitenv-paths.sh"
+  source "${USER_CONFIGS_DIRECTORY}/unix/gitenv-extra.sh"
 fi
 
 if [ -r "${USER_CONFIGS_DIRECTORY}/unix/post-hook.sh" ];
