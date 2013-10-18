@@ -45,7 +45,8 @@ def get_trash_path(filename):
 def check_trash_path(filename):
   """Check trash directory exist for given filename, create it otherwise"""
   trash_path = get_trash_path(filename)
-  os.makedirs(trash_path, exist_ok=True)
+  if not os.path.exists(trash_path):
+    os.makedirs(trash_path)
 
 # Raise NotExist
 def trash(objname):
@@ -59,7 +60,8 @@ def trash(objname):
   month_dir = today.strftime("%m-%B")
   day_dir = today.strftime("%d-%A")
   current_trash_dir = os.path.join(trash_path, year_dir, month_dir, day_dir)
-  os.makedirs(current_trash_dir, exist_ok=True)
+  if not os.path.exists(current_trash_dir):
+    os.makedirs(current_trash_dir)
 
   src = objname
   obj_prefix = os.path.split(objname)[-1] + '-'
