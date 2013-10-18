@@ -40,7 +40,11 @@ fi
 
 if [ -r "${USER_CONFIGS_DIRECTORY}/unix/inputrc" ];
 then
-  bind -f "${USER_CONFIGS_DIRECTORY}/unix/inputrc"
+  # Only run if stdin is a terminal
+  if [ -t 0 ];
+  then
+    bind -f "${USER_CONFIGS_DIRECTORY}/unix/inputrc"
+  fi
 fi
 
 # -F    display '/' after directory, '*' after executable, ... (see man ls)
