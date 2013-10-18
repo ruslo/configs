@@ -7,6 +7,7 @@ import datetime
 import os
 import sys
 import tempfile
+import shutil
 
 import detail.os_detect
 import detail.os
@@ -71,5 +72,5 @@ def trash(objname):
   )
   detail.print.from_to_start('trash', src, dst)
   os.remove(dst) # remove temp
-  os.rename(src, dst)
+  shutil.move(src, dst) # don't use os.rename (Error 18: Cross-device link)
   detail.print.from_to_stop()
