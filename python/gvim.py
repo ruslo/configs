@@ -71,13 +71,13 @@ def vim_binary():
 
 vim_argv[0] = vim_binary()
 
-if detail.command.test_exists(vim_argv[0]):
+if detail.command.test_exist(vim_argv[0]):
   if detail.os_detect.macosx:
     vim_argv.insert(1, '-g')
 else:
   # gvim not found, downgrade to vim
   vim_argv[0] = 'vim'
-  detail.check_exists(vim_argv[0])
+  detail.command.check_exist(vim_argv[0])
 
 log.p('call: {}'.format(vim_argv))
 

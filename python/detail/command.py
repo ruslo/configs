@@ -27,7 +27,7 @@ def print_install_memo_and_exit(cmd):
     detail.utility.unreachable()
   sys.exit("Error")
 
-def test_exists(cmd):
+def test_exist(cmd):
   """Run |which| and if |cmd| not found return |False|, otherwise |True|"""
   if detail.os_detect.windows:
     which = 'where'
@@ -46,7 +46,7 @@ def test_exists(cmd):
 # TODO, 3.3 version use shutil.which
 def check_exist(cmd):
   """Run |which| and if |cmd| not found print help installation text and exit"""
-  if not test_exists(cmd):
+  if not test_exist(cmd):
     print_install_memo_and_exit(cmd)
 
 def run(cmd):
