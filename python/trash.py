@@ -4,8 +4,6 @@
 # All rights reserved.
 
 import argparse
-import sys
-import tempfile
 
 import detail.argparse
 import detail.trash
@@ -25,11 +23,9 @@ def main():
 
   args = parser.parse_args()
 
+  # first, create all necessary directories
   for objname in args.objects:
-    try:
-      detail.trash.check_trash_path(objname)
-    except detail.trash.TrashDirNotExist as exc:
-      sys.exit(exc.message)
+    detail.trash.check_trash_path(objname)
 
   for objname in args.objects:
     detail.trash.trash(objname)

@@ -19,9 +19,6 @@ class Error(Exception):
 class NotExist(Error):
   pass
 
-class TrashDirNotExist(Error):
-  pass
-
 def get_trash_root_dir(filename):
   """Generate root directory for trash directory for given filename"""
   file_partition = detail.os.get_partition(filename)
@@ -43,16 +40,12 @@ def get_trash_root_dir(filename):
 
 def get_trash_path(filename):
   """Generate trash directory pathname for given filename"""
-  return os.path.join(get_trash_root_dir(filename), '.trash')
+  return os.path.join(get_trash_root_dir(filename), '.trash-data')
 
-# raise TrashDirNotExist
 def check_trash_path(filename):
-  """Check trash directory exist for given filename,
-  raise TrashDirNotExist otherwise
-  """
+  """Check trash directory exist for given filename, create it otherwise"""
   trash_path = get_trash_path(filename)
-  if not os.path.isdir(trash_path):
-    raise TrashDirNotExist(detail.print.dir_not_exist(trash_path))
+  os.makedirs(trash_path, exist_ok=True)
 
 # Raise NotExist
 def trash(objname):
@@ -75,6 +68,6 @@ def trash(objname):
       dir=current_trash_dir
   )
   detail.print.from_to_start('trash', src, dst)
-  os.remove(dst)
+  os.remove(dst) # remove temp
   os.rename(src, dst)
   detail.print.from_to_stop()
