@@ -102,7 +102,8 @@ def run_setup(src, dst):
   assert(result == Result.not_bigger)
   gvim_path = os.path.join(configs_dir, 'python', 'gvim.py')
   print("Run diff: '{}' vs. '{}'".format(src, dst))
-  subprocess.check_output([gvim_path, '-d', src, dst])
+  # do not use check_output; vim version need to be shown
+  subprocess.check_call([gvim_path, '-d', src, dst])
 
 run_setup('unix/bashrc.temp', '~/.bashrc')
 run_setup('vim/c.vim', '~/.vim/after/syntax/c.vim')
