@@ -3,9 +3,12 @@
 # Copyright (c) 2013, Ruslan Baratov
 # All rights reserved.
 
-# Load some extra path from GITENV_ROOT
+# Load some extra paths and scripts from GITENV_ROOT
 
 if [ -n "${GITENV_ROOT}" ];
 then
-  echo -n "" # TODO
+  if [ -r "${GITENV_ROOT}/git/contrib/completion/git-completion.bash" ];
+  then
+    source "${GITENV_ROOT}/git/contrib/completion/git-completion.bash"
+  fi
 fi
