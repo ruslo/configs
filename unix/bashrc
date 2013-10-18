@@ -119,6 +119,11 @@ export LC_ALL=C
 if [ -d "${USER_CONFIGS_DIRECTORY}/python" ];
 then
   export PATH="${USER_CONFIGS_DIRECTORY}/python":${PATH}
+  if [ -r "${USER_CONFIGS_DIRECTORY}/python/gvim.py" ];
+  then
+    export MANPAGER='col -bx |
+        gvim.py -S "${USER_CONFIGS_DIRECTORY}/vim/man-scheme.vim" -R -'
+  fi
 fi
 
 if [ -r "${USER_CONFIGS_DIRECTORY}/unix/gitenv-extra.sh" ];
