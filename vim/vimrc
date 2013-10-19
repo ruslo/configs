@@ -100,6 +100,8 @@ set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
 syntax enable
 syntax on
 
+set t_kb=
+
 " Switch language <Ctrl-^>
 set keymap=russian-jcukenwin
 
