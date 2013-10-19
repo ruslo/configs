@@ -86,6 +86,8 @@ def run_setup(src, dst):
   if not os.path.exists(dst_dir):
     os.makedirs(dst_dir, exist_ok = True)
   if not os.path.exists(dst):
+    if os.path.lexists(dst):
+      sys.exit("'{}' is broken link, please remove it".format(dst))
     print("Init: {} -> {}".format(src, dst))
     shutil.copyfile(src, dst)
     return
