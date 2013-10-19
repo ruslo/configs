@@ -87,10 +87,12 @@ set guioptions-=T
 set foldmethod=syntax
 set nofoldenable
 
-if &diff
-  set columns=200
-else
-  set columns=100
+if has("gui_running")
+  if &diff
+    set columns=200
+  else
+    set columns=100
+  endif
 endif
 
 set iskeyword=@,a-z,A-Z,48-57,_,128-175,192-255
