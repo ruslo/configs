@@ -4,6 +4,7 @@
 # All rights reserved.
 
 # Load some extra paths and scripts from GITENV_ROOT
+# Note: This file is sourced from bashrc
 
 if [ -n "${GITENV_ROOT}" ];
 then
