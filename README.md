@@ -27,20 +27,11 @@ One more collection of dotfiles (vim, git, bashrc, ...) with easy integration, j
 ### Integration with gitenv
 ```bash
 > git clone https://github.com/ruslo/gitenv
-Cloning into 'gitenv'...
-...
-# Init configs submodule
 > cd gitenv/ && git submodule init configs
-Submodule 'configs' (...) registered ...
 > git submodule update
-Cloning into 'configs'...
-# Run setup
 > ./configs/setup.py --gitenv-root `pwd`
-Init: /.../c.vim -> /.../.vim/after/syntax/c.vim
-...
-# reload configuration
-> source ~/.bashrc
-# test some script
+> source ~/.bashrc # Reload configuration
+# Now test new environment
 > touch x && trash.py x
 trash: 'x'
     -> '/.../.trash-data/2013/10-October/18-Friday/x-tfsfbj'
@@ -49,16 +40,9 @@ trash: 'x'
 ### Configs + python scripts
 ```bash
 > git clone https://github.com/ruslo/configs
-Cloning into 'configs'...
-...
-# Run setup
 > ./configs/setup.py
-Init: /.../configs/unix/bashrc.temp -> /.../.bashrc
-Init: /.../vim/c.vim -> /.../.vim/after/syntax/c.vim
-...
-# reload configuration
-> source ~/.bashrc
-# test some script
+> source ~/.bashrc # Reload configuration
+# Now test new environment
 > touch x && trash.py x
 trash: 'x'
     -> '/.../.trash-data/2013/10-October/18-Friday/x-tfsfbj'
@@ -67,11 +51,9 @@ trash: 'x'
 ### Just python scripts
 ```bash
 > git clone https://github.com/ruslo/configs
-Cloning into 'configs'...
-...
 # Add python directory to PATH (do not forget export!)
 > export PATH=`pwd`/configs/python:${PATH}
-# test some script
+# Now test new environment
 > touch x && trash.py x
 trash: 'x'
     -> '/.../.trash-data/2013/10-October/18-Friday/x-tfsfbj'
