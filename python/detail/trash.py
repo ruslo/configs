@@ -50,9 +50,11 @@ def check_trash_path(filename):
     os.makedirs(trash_path)
 
 # Raise NotExist
-def trash(objname):
+def trash(objname, ignore_not_exist=False):
   objname = objname.rstrip(os.sep)
   if not os.path.exists(objname):
+    if ignore_not_exist:
+      return
     raise NotExist(detail.print.not_exist(objname))
 
   trash_path = get_trash_path(objname)
