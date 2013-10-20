@@ -42,12 +42,16 @@ class Type:
   def __init__(self, filename):
     zip_ends = '.zip'
     tar_gz_ends = '.tar.gz'
+    tar_bz2_ends = '.tar.bz2'
     if filename.endswith(zip_ends):
       self.type = Type.ZIP
       self.extension = zip_ends
     elif filename.endswith(tar_gz_ends):
       self.type = Type.TAR
       self.extension = tar_gz_ends
+    elif filename.endswith(tar_bz2_ends):
+      self.type = Type.TAR
+      self.extension = tar_bz2_ends
     else:
       raise UnknownType(filename)
     length = len(self.extension)
