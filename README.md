@@ -1,4 +1,5 @@
 # configs
+[![Build Status](https://drone.io/github.com/ruslo/configs/status.png)](https://drone.io/github.com/ruslo/configs/latest)
 
 ## Python scripts
 
