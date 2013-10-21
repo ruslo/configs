@@ -29,6 +29,12 @@ parser.add_argument(
     help="GITENV_ROOT directory (will be added to .bashrc file)"
 )
 
+parser.add_argument(
+    '--force',
+    action='store_true',
+    help='overwrite all existing files'
+)
+
 args = parser.parse_args()
 
 configs_dir = os.path.dirname(os.path.abspath(__file__))
@@ -85,6 +91,8 @@ def run_setup(src, dst):
   dst_dir = os.path.dirname(dst)
   if not os.path.exists(dst_dir):
     os.makedirs(dst_dir, exist_ok = True)
+  if os.path.exists(dst) and args.force:
+    os.remove(dst)
   if not os.path.exists(dst):
     if os.path.lexists(dst):
       sys.exit("'{}' is broken link, please remove it".format(dst))
