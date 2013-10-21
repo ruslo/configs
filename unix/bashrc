@@ -121,8 +121,13 @@ then
   export PATH="${USER_CONFIGS_DIRECTORY}/python":${PATH}
   if [ -r "${USER_CONFIGS_DIRECTORY}/python/gvim.py" ];
   then
-    export MANPAGER='col -bx |
-        gvim.py -S "${USER_CONFIGS_DIRECTORY}/vim/man-scheme.vim" -R -'
+    if [ "${OS_IS_UBUNTU}" == "1" ]; then
+      export MANPAGER='/bin/sh -c "col -bx |
+          gvim.py -S "${USER_CONFIGS_DIRECTORY}/vim/man-scheme.vim" -R -"'
+    else
+      export MANPAGER='col -bx |
+          gvim.py -S "${USER_CONFIGS_DIRECTORY}/vim/man-scheme.vim" -R -'
+    fi
   fi
 fi
 
