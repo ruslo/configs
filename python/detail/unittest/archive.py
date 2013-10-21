@@ -171,15 +171,35 @@ class ZipArchiveTest(unittest.TestCase):
     arch.extractall(self.temp_path)
     result_struct = [x for x in os.walk(self.temp_path)]
     self.assertEqual(
+        result_struct[0],
+        ('./__tmp_testing__', ['directory tree'], [])
+    )
+    del result_struct[0]
+
+    result_struct[0][1].sort()
+        # may be not sorted for some reason (found on drone.io server)
+    self.assertEqual(
+        result_struct[0],
+        ('./__tmp_testing__/directory tree', ['dir1', 'dir2'], [])
+    )
+    del result_struct[0]
+
+    result_struct.sort()
+    result_struct[0][2].sort()
+    self.assertEqual(
+        result_struct[0],
+        (
+            './__tmp_testing__/directory tree/dir1',
+            [],
+            ['a.txt', 'b.txt', 'c.txt', 'd.txt', 'e.txt']
+        )
+    )
+    del result_struct[0]
+
+    result_struct[0][2].sort()
+    self.assertEqual(
         result_struct,
         [
-            ('./__tmp_testing__', ['directory tree'], []),
-            ('./__tmp_testing__/directory tree', ['dir1', 'dir2'], []),
-            (
-                './__tmp_testing__/directory tree/dir1',
-                [],
-                ['a.txt', 'b.txt', 'c.txt', 'd.txt', 'e.txt']
-            ),
             (
                 './__tmp_testing__/directory tree/dir2',
                 [],
