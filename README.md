@@ -1,5 +1,7 @@
 # configs
-[![Build Status](https://drone.io/github.com/ruslo/configs/status.png)](https://drone.io/github.com/ruslo/configs/latest)
+| stand-alone | gitenv |
+|-------------|--------|
+| [![Build Status](https://drone.io/github.com/ruslo/configs/status.png)](https://drone.io/github.com/ruslo/configs/latest) | [![Build Status](https://drone.io/github.com/ruslo/gitenv/status.png)](https://drone.io/github.com/ruslo/gitenv/latest) |
 
 ## Python scripts
 
