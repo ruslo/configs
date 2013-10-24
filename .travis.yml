@@ -5,9 +5,10 @@ python:
     - "3.3"
 
 script:
-    - chmod +x ./setup.py
-    - ./setup.py --force
+    - python setup.py --force
     - source ~/.bashrc
     - which trash.py # test PATH updated
     - touch x
     - trash.py x # test utility
+    - cd ./python/detail/unittest
+    - python archive.py
