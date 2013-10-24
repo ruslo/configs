@@ -13,8 +13,12 @@ then
     source "${GITENV_ROOT}/git/contrib/completion/git-completion.bash"
   fi
 
-  if [ -r "${GITENV_ROOT}/sugar/python" ];
+  if [ -r "${GITENV_ROOT}/sugar/cmake/Sugar" ];
   then
-    PATH="${GITENV_ROOT}/sugar/python":${PATH}
+    export SUGAR_ROOT="${GITENV_ROOT}/sugar"
+    if [ -r "${SUGAR_ROOT}/python" ];
+    then
+      PATH="${SUGAR_ROOT}/python":${PATH}
+    fi
   fi
 fi
