@@ -6,4 +6,4 @@ script:
     - ./configs/setup.py --force
     - source ~/.bashrc
     - touch x
-    - trash.py x
+    - trash.py x # test utility
