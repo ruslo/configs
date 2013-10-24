@@ -2,8 +2,9 @@ language: python
 python:
   - "3.3"
 script:
-    - chmod +x ./configs/setup.py ./configs/trash.py
-    - ./configs/setup.py --force
+    - chmod +x ./setup.py ./trash.py
+    - ./setup.py --force
     - source ~/.bashrc
+    - which trash.py # test PATH updated
     - touch x
     - trash.py x # test utility
