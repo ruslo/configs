@@ -5,12 +5,15 @@
 
 # This is a wrapper/switcher to gvim/vim editor
 
+wiki='https://github.com/ruslo/configs/wiki/gvim.py-usage'
+
 import os
 import subprocess
 import sys
 
-import detail.os_detect
 import detail.command
+import detail.os
+import detail.os_detect
 
 vim_argv = sys.argv
 
@@ -63,9 +66,23 @@ def vim_macosx_binary():
     return bin
   sys.exit("Error: path '{}' not exists".format(bin))
 
+def vim_cygwin_binary():
+  """Try to detect gvim.exe in %ProgramFiles???%/Vim"""
+  progfiles = os.getenv('PROGRAMFILES')
+  if not progfiles:
+    sys.exit("Can't detect PROGRAMFILES (see {} for help)".format(wiki))
+  progfiles = detail.os.win_to_cygwin(progfiles)
+  progfiles = os.path.join(progfiles, 'Vim')
+  for root, dirs, files in os.walk(progfiles):
+    if 'gvim.exe' in files:
+      return os.path.join(root, 'gvim.exe')
+  sys.exit("gvim.exe not found (see {} for help)".format(wiki))
+
 def vim_binary():
   if detail.os_detect.macosx:
     return vim_macosx_binary()
+  elif detail.os_detect.cygwin:
+    return vim_cygwin_binary()
   else:
     return 'gvim'
 
@@ -78,6 +95,21 @@ else:
   # gvim not found, downgrade to vim
   vim_argv[0] = 'vim'
   detail.command.check_exist(vim_argv[0])
+
+if detail.os_detect.cygwin:
+  for index, entry in enumerate(vim_argv):
+    """substitute all files cygwin path to windows path"""
+    if index == 0:
+      continue
+    if entry.startswith('-'):
+      continue
+    vim_argv[index] = detail.os.cygwin_to_win(entry)
+  # Add shell variable update (for diff mode)
+  cmd = detail.command.run(['which', 'cmd'])
+  assert(len(cmd) == 1)
+  cmd = cmd[0]
+  vim_argv.append('--cmd')
+  vim_argv.append('set shell={}'.format(detail.os.cygwin_to_win(cmd)))
 
 log.p('call: {}'.format(vim_argv))
 

@@ -118,5 +118,7 @@ def run_setup(src, dst):
 run_setup('unix/bashrc.temp', '~/.bashrc')
 run_setup('vim/c.vim', '~/.vim/after/syntax/c.vim')
 run_setup('vim/vimrc', '~/.vimrc')
+run_setup('vim/vimrc', '~/_vimrc')
+run_setup('vim/vimrc', '~/_vsvimrc')
 run_setup('git/config', '~/.gitconfig')
 run_setup('git/attributes', '~/.config/git/attributes')

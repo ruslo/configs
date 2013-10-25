@@ -57,3 +57,15 @@ def first_is_subdirectory_of_second(dir1, dir2):
   if rest.startswith(os.sep):
     return True
   return False
+
+def win_to_cygwin(winpath):
+  """run `cygpath winpath` to get cygwin path"""
+  x = detail.command.run(['cygpath', winpath])
+  assert(len(x) == 1)
+  return x[0]
+
+def cygwin_to_win(cygwinpath):
+  """run `cygpath --absolute --windows` to get windows path"""
+  x = detail.command.run(['cygpath', '--absolute', '--windows', cygwinpath])
+  assert(len(x) == 1)
+  return x[0]
