@@ -131,9 +131,12 @@ then
   fi
 fi
 
-if [ -r "${USER_CONFIGS_DIRECTORY}/unix/gitenv-extra.sh" ];
+if [ -n "${GITENV_ROOT}" ];
 then
-  source "${USER_CONFIGS_DIRECTORY}/unix/gitenv-extra.sh"
+  if [ -r "${GITENV_ROOT}/gitenv/paths.sh" ];
+  then
+    source "${GITENV_ROOT}/gitenv/paths.sh"
+  fi
 fi
 
 if [ -r "${USER_CONFIGS_DIRECTORY}/unix/post-hook.sh" ];
