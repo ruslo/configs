@@ -1,7 +1,12 @@
 # configs
-| standalone | gitenv |
+| standalone  | gitenv |
 |-------------|--------|
-| [![Build Status](https://travis-ci.org/ruslo/configs.png?branch=master)](https://travis-ci.org/ruslo/configs) | [![Build Status](https://travis-ci.org/ruslo/gitenv.png?branch=master)](https://travis-ci.org/ruslo/gitenv) |
+| [![][link_build_configs_master]][link_build_configs_branches] | [![][link_build_gitenv_master]][link_build_gitenv_branches] |
+
+[link_build_configs_master]: https://travis-ci.org/ruslo/configs.png?branch=master
+[link_build_configs_branches]: https://travis-ci.org/ruslo/configs/branches
+[link_build_gitenv_master]: https://travis-ci.org/ruslo/gitenv.png?branch=master
+[link_build_gitenv_branches]: https://travis-ci.org/ruslo/gitenv/branches
 
 ## Python scripts
 
@@ -19,6 +24,10 @@ Wrapper/switcher for `gvim`/`vim` command. Sometimes it's tricky to start gvim (
 start windows gvim from cygwin, MacVim from mac os), sometimes you don't have gvim at all and want to use vim
 (for example on server with console-mode only). This script wrap all this job.
 [Read more](https://github.com/ruslo/configs/wiki/gvim.py-usage)
+
+### open.py
+Open files by extensions. Use programs which is listed in configuration file `~/.open.py`.
+[Read more](https://github.com/ruslo/configs/wiki/open.py-usage)
 
 ## Configs
 One more collection of dotfiles (vim, git, bashrc, ...) with easy integration, just run `setup.py`.
