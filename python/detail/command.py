@@ -29,6 +29,13 @@ def print_install_memo_and_exit(cmd):
 
 def test_exist(cmd):
   """Run |which| and if |cmd| not found return |False|, otherwise |True|"""
+  if get_absolute_path(cmd) == '':
+    return False
+  else:
+    return True
+
+def get_absolute_path(cmd):
+  """Run |which| to get absolute path to command or return empty string"""
   if detail.os_detect.windows:
     which = 'where'
   else:
@@ -38,10 +45,13 @@ def test_exist(cmd):
   except subprocess.CalledProcessError:
     sys.exit("Internal error: '{}' not found".format(which))
   try:
-    subprocess.check_output([which, cmd])
-    return True
+    output = subprocess.check_output([which, cmd], universal_newlines=True)
+    output_list = output.split('\n')[:-1] # remove last
+    if len(output_list) != 1:
+      sys.exit("Unexpected {} result".format(which))
+    return output_list[0]
   except subprocess.CalledProcessError:
-    return False
+    return ''
 
 # TODO, 3.3 version use shutil.which
 def check_exist(cmd):

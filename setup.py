@@ -115,6 +115,7 @@ def run_setup(src, dst):
   # do not use check_output; vim version need to be shown
   subprocess.check_call([gvim_path, '-d', src, dst])
 
+run_setup('python/config.open.py', '~/.open.py')
 run_setup('unix/bashrc.temp', '~/.bashrc')
 run_setup('vim/c.vim', '~/.vim/after/syntax/c.vim')
 run_setup('vim/vimrc', '~/.vimrc')
