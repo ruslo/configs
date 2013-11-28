@@ -113,8 +113,14 @@ if detail.os_detect.cygwin:
 
 log.p('call: {}'.format(vim_argv))
 
-# do not call |command.run| (tested with '-f' option)
 try:
-  subprocess.check_call(vim_argv)
+  if detail.os_detect.cygwin and not '-f' in vim_argv:
+    new_vim_argv = []
+    for x in vim_argv:
+      new_vim_argv.append("'{}'".format(x))
+    os.system(' '.join(new_vim_argv) + ' &')
+  else:
+    # do not call |command.run| (tested with '-f' option)
+    subprocess.check_call(vim_argv)
 except subprocess.CalledProcessError:
   sys.exit('Call to (g)vim failed')
