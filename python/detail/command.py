@@ -47,6 +47,7 @@ def get_absolute_path(cmd):
   try:
     output = subprocess.check_output(
         [which, cmd],
+        stderr=subprocess.STDOUT, # cygwin, python 3.2.3
         universal_newlines=True
     )
     output_list = output.split('\n')[:-1] # remove last
