@@ -45,7 +45,10 @@ def get_absolute_path(cmd):
   except subprocess.CalledProcessError:
     sys.exit("Internal error: '{}' not found".format(which))
   try:
-    output = subprocess.check_output([which, cmd], universal_newlines=True)
+    output = subprocess.check_output(
+        [which, cmd],
+        universal_newlines=True
+    )
     output_list = output.split('\n')[:-1] # remove last
     if len(output_list) != 1:
       sys.exit("Unexpected {} result".format(which))
