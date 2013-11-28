@@ -13,8 +13,9 @@ import os
 import subprocess
 import sys
 
-import detail.os_detect
 import detail.command
+import detail.os
+import detail.os_detect
 
 parser = argparse.ArgumentParser(
     description=
@@ -89,6 +90,13 @@ class Object:
             log.p('Warning: "open" not found')
           else:
             self.openscript = open_bin
+        elif detail.os_detect.cygwin:
+          explorer_bin = detail.command.get_absolute_path('explorer.exe')
+          if explorer_bin == '':
+            log.p('Warning: "explorer" not found')
+          else:
+            self.openscript = explorer_bin
+            self.filename = detail.os.cygwin_to_win(self.filename)
         self.type = Type.DIRECTORY
       else:
         self.type = Type.FILE
@@ -142,4 +150,11 @@ if all_in_gvim:
 for x in objects:
   cmd = [x.openscript, x.filename]
   log.p('start: {}'.format(cmd))
-  subprocess.check_call(cmd)
+  try:
+    subprocess.check_call(cmd)
+  except subprocess.CalledProcessError as exc:
+    ignore_error = detail.os_detect.cygwin and (x.type == Type.DIRECTORY)
+    if not ignore_error:
+      sys.exit('Subprocess failed')
+    else:
+      log.p('Subprocess error ignored')
