@@ -6,6 +6,7 @@
 import argparse
 import difflib
 import os
+import platform
 import shutil
 import subprocess
 import sys
@@ -55,6 +56,13 @@ if gitenv_root:
 else:
   bashrc_base.write('source "{}"\n'.format(bashrc_abs_path))
 bashrc_base.close()
+
+if platform.system().startswith('CYGWIN'):
+  home = os.getenv('HOME')
+  bash_profile_dst = os.path.join(home, '.bash_profile')
+  bash_profile_src = os.path.join(configs_dir, 'unix', 'bash_profile')
+  if not os.path.exists(bash_profile_dst):
+    shutil.copyfile(bash_profile_src, bash_profile_dst)
 
 # emulate enum
 class Result:
