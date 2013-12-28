@@ -68,14 +68,13 @@ def vim_macosx_binary():
 
 def vim_cygwin_binary():
   """Try to detect gvim.exe in %ProgramFiles???%/Vim"""
-  progfiles = os.getenv('PROGRAMFILES')
-  if not progfiles:
-    sys.exit("Can't detect PROGRAMFILES (see {} for help)".format(wiki))
-  progfiles = detail.os.win_to_cygwin(progfiles)
-  progfiles = os.path.join(progfiles, 'Vim')
-  for root, dirs, files in os.walk(progfiles):
-    if 'gvim.exe' in files:
-      return os.path.join(root, 'gvim.exe')
+  for env_var in ['PROGRAMFILES', 'ProgramFiles(x86)']:
+    progfiles = os.getenv(env_var)
+    progfiles = detail.os.win_to_cygwin(progfiles)
+    progfiles = os.path.join(progfiles, 'Vim')
+    for root, dirs, files in os.walk(progfiles):
+      if 'gvim.exe' in files:
+        return os.path.join(root, 'gvim.exe')
   sys.exit("gvim.exe not found (see {} for help)".format(wiki))
 
 def vim_binary():
