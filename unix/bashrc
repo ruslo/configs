@@ -114,7 +114,11 @@ fi
 # -xN                         Set tab stops
 # -r (--raw-control-chars)    Causes "raw" control characters to be displayed
 export LESS="-C -x2 -r"
-export LC_ALL=C
+
+# http://stackoverflow.com/questions/17031651/
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 if [ -d "${USER_CONFIGS_DIRECTORY}/python" ];
 then
