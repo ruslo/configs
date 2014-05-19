@@ -125,6 +125,7 @@ def run_setup(src, dst):
 
 run_setup('python/config.open.py', '~/.open.py')
 run_setup('unix/bashrc.temp', '~/.bashrc')
+run_setup('unix/bash_profile', '~/.bash_profile')
 run_setup('vim/c.vim', '~/.vim/after/syntax/c.vim')
 run_setup('vim/vimrc', '~/.vimrc')
 run_setup('vim/vimrc', '~/_vimrc')
