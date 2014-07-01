@@ -120,3 +120,7 @@ match TabsAndTrailingSpaces /\t\| \+$/
 
 " https://github.com/ruslo/0/wiki/Cpp#file-extensions
 au BufRead,BufNewFile *.fpp,*.hpp,*.ipp,*.cpp,*.tpp set filetype=cpp.doxygen
+
+" Menu for Show/Hide 80 chars border
+:menu Tools.Show\ Border\ (80) :let &colorcolumn=join(range(81,9999),",")<CR>
+:menu Tools.Hide\ Border\ (80) :let &colorcolumn=join(range(9999,9999),",")<CR>
