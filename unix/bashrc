@@ -105,9 +105,9 @@ if [ "`command -v stty`" != "" ]; then
 fi
 
 if [ "`command -v umask`" != "" ]; then
-  # file default mode is 666 & ~027 = 640 (owner: read/write, group: read)
-  # directory default mode is 777 & ~027 = 750 (owner: read/write/search, group: read/search)
-  umask 027
+  # file default mode is 666 & ~022 = 644 (owner: read/write, group/other: read)
+  # directory default mode is 777 & ~022 = 755 (owner: read/write/search, group/other: read/search)
+  umask 022
 fi
 
 # -C (--clear-screen)         Causes full screen repaints to be painted from the top line down
