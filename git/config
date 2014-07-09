@@ -1,6 +1,7 @@
 [core]
   editor = gvim.py -f
   filemode = false
+  longpaths = true
 
 [diff]
   tool = git_diff_tool
