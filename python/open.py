@@ -97,6 +97,13 @@ class Object:
           else:
             self.openscript = explorer_bin
             self.filename = detail.os.cygwin_to_win(self.filename)
+        elif detail.os_detect.ubuntu:
+          nautilus_bin = detail.command.get_absolute_path('nautilus')
+          if nautilus_bin == '':
+            log.p('Warning: "nautilus" not found')
+          else:
+            self.openscript = nautilus_bin
+
         self.type = Type.DIRECTORY
       else:
         self.type = Type.FILE
