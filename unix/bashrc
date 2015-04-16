@@ -73,11 +73,12 @@ fi
 # \[   begin a sequence of non-printing characters
 # \u   the username of the current user
 # \h   the hostname up to the first `.'
+# \H   the hostname
 # \w   the current working directory, with $HOME abbreviated with a tilde
 # \! - the history number of this command
 # \]   end a sequence of non-printing characters
 PS1="${COLOR_U_GREEN}\u${COLOR_OFF}@${COLOR_U_CYAN}\
-\h${COLOR_OFF} \w${COLOR_YELLOW} \!${COLOR_OFF}\n> "
+\H${COLOR_OFF} \w${COLOR_YELLOW} \!${COLOR_OFF}\n> "
 
 # -z    true if length is zero
 # ${VAR:=SUB}    if VAR is unset or empty, substitute with SUB
