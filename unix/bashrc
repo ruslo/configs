@@ -70,6 +70,12 @@ if [ "${OS_IS_GENTOO}" == "1" ]; then
   fi
 fi
 
+if [ -f "${HOME}/.userhostname" ]; then
+  _USERHOSTNAME=`cat ${HOME}/.userhostname`
+else
+  _USERHOSTNAME="\H"
+fi
+
 # \[   begin a sequence of non-printing characters
 # \u   the username of the current user
 # \h   the hostname up to the first `.'
@@ -78,7 +84,7 @@ fi
 # \! - the history number of this command
 # \]   end a sequence of non-printing characters
 PS1="${COLOR_U_GREEN}\u${COLOR_OFF}@${COLOR_U_CYAN}\
-\H${COLOR_OFF} \w${COLOR_YELLOW} \!${COLOR_OFF}\n> "
+${_USERHOSTNAME}${COLOR_OFF} \w${COLOR_YELLOW} \!${COLOR_OFF}\n> "
 
 # -z    true if length is zero
 # ${VAR:=SUB}    if VAR is unset or empty, substitute with SUB
