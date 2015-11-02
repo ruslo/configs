@@ -157,6 +157,11 @@ then
   source "${USER_CONFIGS_DIRECTORY}/unix/post-hook.sh"
 fi
 
+if [ -r "/etc/bash_completion" ];
+then
+  source "/etc/bash_completion"
+fi
+
 # Last command must be not |A && B| format, see |man bash|, |set -e|:
 # "... part of any command executed in a && or  ||  list
 # except  the  command  following  the final && or || ...".
