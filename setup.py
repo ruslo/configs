@@ -43,7 +43,11 @@ bashrc_abs_path = os.path.join(configs_dir, 'unix', 'bashrc')
 if not os.path.exists(bashrc_abs_path):
   sys.exit("file '{}' not exists".format(bashrc_abs_path))
 
-# generate .bashrc base file
+zshrc_abs_path = os.path.join(configs_dir, 'unix', 'zshrc')
+if not os.path.exists(zshrc_abs_path):
+  sys.exit("file '{}' not exists".format(zshrc_abs_path))
+
+# generate .zshrc base file
 bashrc_base_abs = bashrc_abs_path + '.temp'
 bashrc_base = open(bashrc_base_abs, mode='w')
 gitenv_root = args.gitenv
@@ -56,6 +60,20 @@ if gitenv_root:
 else:
   bashrc_base.write('source "{}"\n'.format(bashrc_abs_path))
 bashrc_base.close()
+
+# generate .zshrc base file
+zshrc_base_abs = zshrc_abs_path + '.temp'
+zshrc_base = open(zshrc_base_abs, mode='w')
+gitenv_root = args.gitenv
+if gitenv_root:
+  zshrc_base.write('export GITENV_ROOT="{}"\n'.format(gitenv_root))
+  zshrc_base.write('source "${GITENV_ROOT}/configs/unix/zshrc"\n')
+  zshrc_path = os.path.join(gitenv_root, 'configs', 'unix', 'zshrc')
+  if not os.path.exists(zshrc_path):
+    sys.exit("file '{}' not exists".format(zshrc_path))
+else:
+  zshrc_base.write('source "{}"\n'.format(zshrc_abs_path))
+zshrc_base.close()
 
 if platform.system().startswith('CYGWIN'):
   home = os.getenv('HOME')
@@ -125,6 +143,7 @@ def run_setup(src, dst):
 
 run_setup('python/config.open.py', '~/.open.py')
 run_setup('unix/bashrc.temp', '~/.bashrc')
+run_setup('unix/zshrc.temp', '~/.zshrc')
 run_setup('unix/bash_profile', '~/.bash_profile')
 run_setup('vim/c.vim', '~/.vim/after/syntax/c.vim')
 run_setup('vim/vimrc', '~/.vimrc')
