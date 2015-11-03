@@ -13,11 +13,11 @@ case `uname` in
     export OS_IS_MAC=1
     ;;
   "Linux")
-    if [ "`uname -a | grep '\<Ubuntu\>' | wc -l`" == "1" ]; then
+    if [ "`uname -a | grep '\<Ubuntu\>' | wc -l`" = "1" ]; then
       export OS_IS_UBUNTU=1
     fi
 
-    if [ "`uname -a | grep -i '\<gentoo\>' | wc -l`" == "1" ]; then
+    if [ "`uname -a | grep -i '\<gentoo\>' | wc -l`" = "1" ]; then
       export OS_IS_GENTOO=1
     fi
     ;;

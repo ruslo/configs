@@ -48,7 +48,7 @@ then
 fi
 
 # -F    display '/' after directory, '*' after executable, ... (see man ls)
-if [ "${OS_IS_MAC}" == "1" ]; then
+if [ "${OS_IS_MAC}" = "1" ]; then
   # -G    Enable colorized output
   # -w    Force raw printing of non-printable chars (encoding, see below)
   alias ls='ls -GFw'
@@ -64,7 +64,7 @@ alias grep='grep --color'
 # -h    When used with the '-l' option, use unit suffixes: Byte, Kilobyte, ...
 alias ll='ls -alh'
 
-if [ "${OS_IS_GENTOO}" == "1" ]; then
+if [ "${OS_IS_GENTOO}" = "1" ]; then
   if [ -f /etc/profile ]; then
     . /etc/profile
   fi
@@ -132,11 +132,11 @@ then
   export PATH="${USER_CONFIGS_DIRECTORY}/python":${PATH}
   if [ -r "${USER_CONFIGS_DIRECTORY}/python/gvim.py" ];
   then
-    if [ "${OS_IS_UBUNTU}" == "1" ]; then
+    if [ "${OS_IS_UBUNTU}" = "1" ]; then
       export MANPAGER='/bin/sh -c "col -bx |
           gvim.py -S "${USER_CONFIGS_DIRECTORY}/vim/man-scheme.vim" -R -"'
     else
-      if [ "${OS_IS_CYGWIN}" == "0" ]; then
+      if [ "${OS_IS_CYGWIN}" = "0" ]; then
         export MANPAGER='col -bx |
             gvim.py -S "${USER_CONFIGS_DIRECTORY}/vim/man-scheme.vim" -R -'
       fi
