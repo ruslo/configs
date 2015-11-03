@@ -27,7 +27,16 @@ fi
 
 if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors.sh" ];
 then
-  source "${USER_CONFIGS_DIRECTORY}/unix/colors.sh"
+  if [ "${ZSH}" = "" ]; then
+    source "${USER_CONFIGS_DIRECTORY}/unix/colors.sh"
+  fi
+fi
+
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors-zsh.sh" ];
+then
+  if [ "${ZSH}" != "" ]; then
+    source "${USER_CONFIGS_DIRECTORY}/unix/colors-zsh.sh"
+  fi
 fi
 
 if [ "`command -v dircolors`" != "" ]; then
@@ -43,7 +52,9 @@ then
   # Only run if stdin is a terminal
   if [ -t 0 ];
   then
-    bind -f "${USER_CONFIGS_DIRECTORY}/unix/inputrc"
+    if [ "`command -v bind`" != "" ]; then
+      bind -f "${USER_CONFIGS_DIRECTORY}/unix/inputrc"
+    fi
   fi
 fi
 
@@ -73,18 +84,33 @@ fi
 if [ -f "${HOME}/.userhostname" ]; then
   _USERHOSTNAME=`cat ${HOME}/.userhostname`
 else
-  _USERHOSTNAME="\H"
+  if [ "${ZSH}" = "" ]; then
+    _USERHOSTNAME="\H"
+  else
+    _USERHOSTNAME="%M"
+  fi
 fi
 
-# \[   begin a sequence of non-printing characters
-# \u   the username of the current user
-# \h   the hostname up to the first `.'
-# \H   the hostname
-# \w   the current working directory, with $HOME abbreviated with a tilde
-# \! - the history number of this command
-# \]   end a sequence of non-printing characters
-PS1="${COLOR_U_GREEN}\u${COLOR_OFF}@${COLOR_U_CYAN}\
+if [ "${ZSH}" = "" ]; then
+  # \[   begin a sequence of non-printing characters
+  # \u   the username of the current user
+  # \h   the hostname up to the first `.'
+  # \H   the hostname
+  # \w   the current working directory, with $HOME abbreviated with a tilde
+  # \! - the history number of this command
+  # \]   end a sequence of non-printing characters
+  PS1="${COLOR_U_GREEN}\u${COLOR_OFF}@${COLOR_U_CYAN}\
 ${_USERHOSTNAME}${COLOR_OFF} \w${COLOR_YELLOW} \!${COLOR_OFF}\n> "
+else
+  # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+  # %n Your username
+  # %~ Your current working directory, relative to ~
+  # %M The full machine hostname.
+  # %h Current history event number.
+  _NEWLINE=$'\n'
+  PS1="${COLOR_U_GREEN}%n${COLOR_OFF}@${COLOR_U_CYAN}\
+${_USERHOSTNAME}${COLOR_OFF} %~${COLOR_YELLOW} %h${COLOR_OFF}${_NEWLINE}> "
+fi
 
 # -z    true if length is zero
 # ${VAR:=SUB}    if VAR is unset or empty, substitute with SUB
@@ -98,8 +124,10 @@ COLORIZED_SAD_FACE_SYMBOLS="${COLOR_BHI_RED}${SAD_FACE_SYMBOLS}${COLOR_OFF}"
 PS1="\$( if [[ \$? != 0 ]]; then \
 echo \"${COLORIZED_SAD_FACE_SYMBOLS}  \"; fi)${PS1}"
 
-# http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
-shopt -s expand_aliases
+if [ "`command -v shopt`" != "" ]; then
+  # http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+  shopt -s expand_aliases
+fi
 
 if [ "`command -v stty`" != "" ]; then
   # Only run if stdin is a terminal
@@ -159,7 +187,9 @@ fi
 
 if [ -r "/etc/bash_completion" ];
 then
-  source "/etc/bash_completion"
+  if [ "${ZSH}" = "" ]; then
+    source "/etc/bash_completion"
+  fi
 fi
 
 # Last command must be not |A && B| format, see |man bash|, |set -e|:
