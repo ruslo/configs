@@ -25,20 +25,9 @@ then
   source "${USER_CONFIGS_DIRECTORY}/unix/os_detect.sh"
 fi
 
-if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors-bash.sh" ];
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors.sh" ];
 then
-  if [ "${SHELL}" = "/bin/bash" ];
-  then
-    source "${USER_CONFIGS_DIRECTORY}/unix/colors-bash.sh"
-  fi
-fi
-
-if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors-zsh.sh" ];
-then
-  if [ "${SHELL}" = "/bin/zsh" ];
-  then
-    source "${USER_CONFIGS_DIRECTORY}/unix/colors-zsh.sh"
-  fi
+  source "${USER_CONFIGS_DIRECTORY}/unix/colors.sh"
 fi
 
 if [ "`command -v dircolors`" != "" ]; then
