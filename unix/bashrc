@@ -163,7 +163,10 @@ fi
 
 if [ -r "/etc/bash_completion" ];
 then
-  source "/etc/bash_completion"
+  if [ "${SHELL}" = "/bin/bash" ];
+  then
+    source "/etc/bash_completion"
+  fi
 fi
 
 # Last command must be not |A && B| format, see |man bash|, |set -e|:
