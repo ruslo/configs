@@ -100,8 +100,10 @@ COLORIZED_SAD_FACE_SYMBOLS="${COLOR_BHI_RED}${SAD_FACE_SYMBOLS}${COLOR_OFF}"
 PS1="\$( if [[ \$? != 0 ]]; then \
 echo \"${COLORIZED_SAD_FACE_SYMBOLS}  \"; fi)${PS1}"
 
-# http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
-shopt -s expand_aliases
+if [ "`command -v shopt`" != "" ]; then
+  # http://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+  shopt -s expand_aliases
+fi
 
 if [ "`command -v stty`" != "" ]; then
   # Only run if stdin is a terminal
