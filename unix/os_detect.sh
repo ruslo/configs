@@ -22,7 +22,7 @@ case `uname` in
     fi
     ;;
   *)
-    if [ "`uname -o`" == "Cygwin" ]; then
+    if [ "`uname -o`" = "Cygwin" ]; then
       export OS_IS_CYGWIN=1
     fi
     ;;
