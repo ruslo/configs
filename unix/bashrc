@@ -43,7 +43,9 @@ then
   # Only run if stdin is a terminal
   if [ -t 0 ];
   then
-    bind -f "${USER_CONFIGS_DIRECTORY}/unix/inputrc"
+    if [ "`command -v bind`" != "" ]; then
+      bind -f "${USER_CONFIGS_DIRECTORY}/unix/inputrc"
+    fi
   fi
 fi
 
