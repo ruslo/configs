@@ -25,9 +25,20 @@ then
   source "${USER_CONFIGS_DIRECTORY}/unix/os_detect.sh"
 fi
 
-if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors.sh" ];
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors-bash.sh" ];
 then
-  source "${USER_CONFIGS_DIRECTORY}/unix/colors.sh"
+  if [ "${SHELL}" = "/bin/bash" ];
+  then
+    source "${USER_CONFIGS_DIRECTORY}/unix/colors-bash.sh"
+  fi
+fi
+
+if [ -r "${USER_CONFIGS_DIRECTORY}/unix/colors-zsh.sh" ];
+then
+  if [ "${SHELL}" = "/bin/zsh" ];
+  then
+    source "${USER_CONFIGS_DIRECTORY}/unix/colors-zsh.sh"
+  fi
 fi
 
 if [ "`command -v dircolors`" != "" ]; then
@@ -75,18 +86,44 @@ fi
 if [ -f "${HOME}/.userhostname" ]; then
   _USERHOSTNAME=`cat ${HOME}/.userhostname`
 else
-  _USERHOSTNAME="\H"
+  if [ "${SHELL}" = "/bin/bash" ];
+  then
+    _USERHOSTNAME="\H"
+  fi
+
+  if [ "${SHELL}" = "/bin/zsh" ];
+  then
+    _USERHOSTNAME="%M"
+  fi
 fi
 
-# \[   begin a sequence of non-printing characters
-# \u   the username of the current user
-# \h   the hostname up to the first `.'
-# \H   the hostname
-# \w   the current working directory, with $HOME abbreviated with a tilde
-# \! - the history number of this command
-# \]   end a sequence of non-printing characters
-PS1="${COLOR_U_GREEN}\u${COLOR_OFF}@${COLOR_U_CYAN}\
+if [ "${SHELL}" = "/bin/bash" ];
+then
+  # \[   begin a sequence of non-printing characters
+  # \u   the username of the current user
+  # \h   the hostname up to the first `.'
+  # \H   the hostname
+  # \w   the current working directory, with $HOME abbreviated with a tilde
+  # \! - the history number of this command
+  # \]   end a sequence of non-printing characters
+  PS1="${COLOR_U_GREEN}\u${COLOR_OFF}@${COLOR_U_CYAN}\
 ${_USERHOSTNAME}${COLOR_OFF} \w${COLOR_YELLOW} \!${COLOR_OFF}\n> "
+fi
+
+if [ "${SHELL}" = "/bin/zsh" ];
+then
+  # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+  # %n   $USERNAME
+  # %M   The full machine hostname.
+  # %d   Current working directory
+  # %~   As %d and %/, but if the current working directory starts with $HOME,
+  #      that part is replaced by a ‘~’
+  # %h   Current history event number.
+
+  PS1="${COLOR_U_GREEN}%n${COLOR_OFF}@${COLOR_U_CYAN}\
+${_USERHOSTNAME}${COLOR_OFF} %~${COLOR_YELLOW} %h${COLOR_OFF}
+> "
+fi
 
 # -z    true if length is zero
 # ${VAR:=SUB}    if VAR is unset or empty, substitute with SUB
