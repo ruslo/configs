@@ -118,7 +118,7 @@ vmap <silent> <C-F> <C-^>
 highlight TabsAndTrailingSpaces ctermbg=red guibg=red
 match TabsAndTrailingSpaces /\t\| \+$/
 
-" https://github.com/ruslo/0/wiki/Cpp#file-extensions
+" http://0.readthedocs.org/en/latest/cpp.html#file-extensions
 au BufRead,BufNewFile *.fpp,*.hpp,*.ipp,*.cpp,*.tpp set filetype=cpp.doxygen
 
 " Menu for Show/Hide 80 chars border
