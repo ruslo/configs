@@ -160,18 +160,6 @@ export LC_ALL=en_US.UTF-8
 if [ -d "${USER_CONFIGS_DIRECTORY}/python" ];
 then
   export PATH="${USER_CONFIGS_DIRECTORY}/python":${PATH}
-  if [ -r "${USER_CONFIGS_DIRECTORY}/python/gvim.py" ];
-  then
-    if [ "${OS_IS_UBUNTU}" = "1" ]; then
-      export MANPAGER='/bin/sh -c "col -bx |
-          gvim.py -S "${USER_CONFIGS_DIRECTORY}/vim/man-scheme.vim" -R -"'
-    else
-      if [ "${OS_IS_CYGWIN}" = "0" ]; then
-        export MANPAGER='col -bx |
-            gvim.py -S "${USER_CONFIGS_DIRECTORY}/vim/man-scheme.vim" -R -'
-      fi
-    fi
-  fi
 fi
 
 if [ -n "${GITENV_ROOT}" ];
