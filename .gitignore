@@ -1,8 +1,0 @@
-# python cache
-*/__pycache__
-*/*/__pycache__
-*.pyc
-
-# temps
-unix/bashrc.temp
-unix/zshrc.temp
