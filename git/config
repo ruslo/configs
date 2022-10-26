@@ -1,5 +1,5 @@
 [core]
-  editor = gvim.py -f
+  editor = gvim -f
   filemode = false
   longpaths = true
 
@@ -7,7 +7,7 @@
   tool = git_diff_tool
 
 [difftool "git_diff_tool"]
-  cmd = gvim.py -f -d "${REMOTE}" "${LOCAL}"
+  cmd = gvim -f -d "${REMOTE}" "${LOCAL}"
   prompt = false
 
 [merge]
@@ -16,7 +16,7 @@
   tool = git_merge_tool
 
 [mergetool "git_merge_tool"]
-  cmd = gvim.py -f -d "${REMOTE}" "${BASE}" "${LOCAL}" && cp "${LOCAL}" "${MERGED}"
+  cmd = gvim -f -d "${REMOTE}" "${BASE}" "${LOCAL}" && cp "${LOCAL}" "${MERGED}"
   trustExitCode = true
   prompt = false
   keepTemporaries = false
@@ -27,3 +27,6 @@
 
 [color]
   ui = true
+
+[pager]
+  branch = false
