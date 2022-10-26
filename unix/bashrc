@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2013, Ruslan Baratov
+# Copyright (c) 2013-2022, Ruslan Baratov
 # All rights reserved.
 
 # See README.md for usage
@@ -12,13 +12,8 @@
 #     Do not |cd| to any directory during |bashrc| loading
 #     it's not comfortable while making |source ~/.bashrc|' for update
 
-if [ -n "${GITENV_ROOT}" ];
-then
-  export USER_CONFIGS_DIRECTORY="${GITENV_ROOT}/configs"
-else
-  _THIS_SOURCE_DIRNAME=`dirname "${BASH_SOURCE[0]}"`
-  USER_CONFIGS_DIRECTORY=`cd "${_THIS_SOURCE_DIRNAME}/.." && pwd`
-fi
+_THIS_SOURCE_DIRNAME=`dirname "${BASH_SOURCE[0]}"`
+USER_CONFIGS_DIRECTORY=`cd "${_THIS_SOURCE_DIRNAME}/.." && pwd`
 
 if [ -r "${USER_CONFIGS_DIRECTORY}/unix/os_detect.sh" ];
 then
