@@ -1,8 +1,9 @@
-" Copyright (c) 2013, Ruslan Baratov
+" Copyright (c) 2013-2022, Ruslan Baratov
 " All rights reserved.
 
 " Copy this file to ~/.vimrc (unix) or
-" %HOME%/_vimrc (windows), %HOME%/_vsvimrc (VsVim windows)
+" %USERPROFILE%/_vimrc (windows)
+" Note: do not copy the text with Ctrl+A, download the file instead, invisible characters used (see t_kb)
 
 " Disable Vi-compatible
 set nocompatible
@@ -10,8 +11,8 @@ set nocompatible
 " |set encoding=utf-8| break windows gvim
 
 if has('win32')
-  set fileformats=dos,unix
-  set fileencodings=cp1251,utf-8,koi8-r,cp866
+  set fileformats=unix
+  set fileencodings=utf-8
   set guifont=DejaVu_Sans_Mono:h10:cRUSSIAN
 else
   set fileformats=unix,dos
@@ -126,3 +127,7 @@ au BufRead,BufNewFile *.fpp,*.hpp,*.ipp,*.cpp,*.tpp set filetype=cpp.doxygen
 :menu Tools.Hide\ Border\ (80) :let &colorcolumn=join(range(9999,9999),",")<CR>
 
 runtime ftplugin/man.vim
+
+" Highlight tabs and spaces at end of line
+syntax match cTodo "\t"
+syntax match cTodo "\s\+$"
